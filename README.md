@@ -2,4 +2,4 @@
 
 This is just an experiment.
 
-![preview](./docs/babylon_native_test_1.gif)
+<img src="./docs/babylon_native_test_1.gif" alt="preview" width="400">
