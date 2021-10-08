@@ -52,6 +52,7 @@ const HomeContainer: FunctionComponent<MyComponentProps> = ({}) => {
       }}>
       <Button title="Ball" navigateTo="Ball" />
       <Button title="Dome" navigateTo="Dome" />
+      <Button title="Mesh" navigateTo="Mesh" />
     </View>
   )
 }
