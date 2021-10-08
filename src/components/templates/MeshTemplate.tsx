@@ -12,7 +12,7 @@ import {
   Vector3,
 } from '@babylonjs/core'
 import PageHeader from '../molecules/Header'
-import createInputHandling from '../hooks/InputHandler'
+import createInputHandling from '../functions/createInputHandling'
 
 interface MyComponentProps {}
 

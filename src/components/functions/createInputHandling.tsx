@@ -19,6 +19,7 @@ export default async function createInputHandling(
   deviceSourceManager?.onDeviceDisconnectedObservable.clear()
 
   deviceSourceManager?.onDeviceDisconnectedObservable.add((device: any) => {
+    console.log('Disconneted device: ', device)
     numInputs--
   })
 
@@ -32,7 +33,9 @@ export default async function createInputHandling(
         )!
       touch.onInputChangedObservable.add(touchEvent => {
         if (touchEvent && mesh) {
-          const diff = touchEvent?.previousState - touchEvent?.currentState
+          let previousState = touchEvent?.previousState
+          let currentState = touchEvent?.currentState
+          const diff = (previousState ?? 0) - (currentState ?? 0)
 
           if (mesh?.isEnabled())
             if (rotateOnly) {
