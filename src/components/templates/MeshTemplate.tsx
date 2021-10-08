@@ -39,7 +39,6 @@ const MyComponent: FunctionComponent<MyComponentProps> = (
       scene.createDefaultLight(true)
       // scene.addParticleSystem()
 
-
       SceneLoader.ImportMeshAsync(
         'semi_house',
         'https://assets.babylonjs.com/meshes/',
@@ -58,12 +57,12 @@ const MyComponent: FunctionComponent<MyComponentProps> = (
         body.rotation.y = 1.55
 
         const deviceSourceManager = new DeviceSourceManager(engine)
-        createInputHandling(deviceSourceManager, body).then(createValue => {
-          console.log('createValue: ', createValue)
-        })
-
+        createInputHandling(deviceSourceManager, body, true).then(
+          createValue => {
+            console.log('createValue: ', createValue)
+          },
+        )
       })
-
 
       scene.beforeRender = function () {
         // sphere.rotate(Vector3.Up(), 0.01 * scene.getAnimationRatio())

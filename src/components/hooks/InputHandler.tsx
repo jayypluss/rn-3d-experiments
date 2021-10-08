@@ -1,7 +1,17 @@
-import {DeviceSource, DeviceSourceManager, DeviceType, PointerInput, Vector3} from '@babylonjs/core'
-import {AbstractMesh} from "@babylonjs/core/Meshes/abstractMesh";
+import {
+  DeviceSource,
+  DeviceSourceManager,
+  DeviceType,
+  PointerInput,
+  Vector3,
+} from '@babylonjs/core'
+import {AbstractMesh} from '@babylonjs/core/Meshes/abstractMesh'
 
-export default async function createInputHandling(deviceSourceManager: DeviceSourceManager, mesh: AbstractMesh) {
+export default async function createInputHandling(
+  deviceSourceManager: DeviceSourceManager,
+  mesh: AbstractMesh,
+  rotateOnly?: boolean,
+) {
   var numInputs = 0
   var previousDiff = 0
 
@@ -25,7 +35,14 @@ export default async function createInputHandling(deviceSourceManager: DeviceSou
           const diff = touchEvent?.previousState - touchEvent?.currentState
 
           if (mesh?.isEnabled())
-            if (numInputs === 1)
+            if (rotateOnly) {
+              if (
+                numInputs === 1 &&
+                touchEvent.inputIndex === PointerInput.Horizontal &&
+                touchEvent.deviceSlot === 0
+              )
+                mesh.rotate(Vector3.Up(), diff / 200)
+            } else if (numInputs === 1)
               if (touchEvent.inputIndex === PointerInput.Horizontal)
                 mesh.position.x -= diff / 1000
               else mesh.position.z += diff / 750
