@@ -17,13 +17,14 @@ const Button: FunctionComponent<ButtonProps> = ({title, navigateTo}) => {
   return (
     <TouchableOpacity
       style={{
-        height: 50,
-        width: 150,
+        height: 65,
+        width: 185,
         backgroundColor: '#eeede7',
         alignItems: 'center',
         justifyContent: 'center',
         padding: 2,
         margin: 20,
+        borderRadius: 100,
       }}
       onPress={() => navigate(navigateTo)}>
       <Text
@@ -52,7 +53,8 @@ const HomeContainer: FunctionComponent<MyComponentProps> = ({}) => {
       }}>
       <Button title="Ball" navigateTo="Ball" />
       <Button title="Dome" navigateTo="Dome" />
-      <Button title="Mesh" navigateTo="Mesh" />
+      <Button title="Mesh Babylon" navigateTo="Mesh" />
+      <Button title="Mesh glTF" navigateTo="MeshGltf" />
     </View>
   )
 }
