@@ -55,6 +55,7 @@ const HomeContainer: FunctionComponent<MyComponentProps> = ({}) => {
       <Button title="Dome" navigateTo="Dome" />
       <Button title="Mesh Babylon" navigateTo="Mesh" />
       <Button title="Mesh glTF" navigateTo="MeshGltf" />
+      <Button title="AR Mesh" navigateTo="ARMesh" />
     </View>
   )
 }
