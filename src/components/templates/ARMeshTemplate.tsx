@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useEffect, useState} from 'react'
-import {View, PermissionsAndroid} from 'react-native'
+import {View, PermissionsAndroid, Image} from 'react-native'
 // import './style.scss';
 
 import {EngineView, useEngine} from '@babylonjs/react-native'
@@ -9,14 +9,20 @@ import {
   DeviceSourceManager,
   Scene,
   SceneLoader,
+  StandardMaterial,
+  Texture,
   Vector3,
   WebXRDefaultExperience,
+  WebXRFeatureName,
+  WebXRHitTest,
 } from '@babylonjs/core'
 import PageHeader from '../molecules/Header'
 import createInputHandling from '../functions/createInputHandling'
 
 import '@babylonjs/loaders'
 import {WebXRSessionManager} from '@babylonjs/core/XR/webXRSessionManager'
+import {BorderlessButton} from 'react-native-gesture-handler'
+import exchangeIcon from '../../../assets/icons/exchange-alt-solid.png'
 
 interface MyComponentProps {}
 
@@ -59,6 +65,45 @@ const MyComponent: FunctionComponent<MyComponentProps> = (
             .enterXRAsync('immersive-ar', 'unbounded', xr.renderTarget)
             .then(session => {
               console.log(session)
+
+              // Set up the hit test.
+              const xrHitTestModule =
+                xr.baseExperience.featuresManager.enableFeature(
+                  WebXRFeatureName.HIT_TEST,
+                  'latest',
+                  {
+                    offsetRay: {
+                      origin: {x: 0, y: 0, z: 0},
+                      direction: {x: 0, y: 0, z: -1},
+                    },
+                  },
+                ) as WebXRHitTest
+
+              console.log('xrHitTestModule: ', xrHitTestModule)
+
+              // import model
+              SceneLoader.ImportMeshAsync(
+                '',
+                'https://models.babylonjs.com/seagulf.glb',
+                // "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/BrainStem/glTF/BrainStem.gltf",
+              ).then(result => {
+                const mesh = result.meshes[0]
+                mesh.position.x = 2
+                mesh.position.z = 2
+                mesh.position.y = -2
+              })
+
+              const planeTexture = new Texture(
+                'https://i.imgur.com/z7s3C5B.png',
+                scene,
+              )
+              planeTexture.hasAlpha = true
+              planeTexture.uScale = 1
+              planeTexture.vScale = 1
+              planeTexture.coordinatesMode = Texture.PROJECTION_MODE
+
+              const planeMat = new StandardMaterial('noLight', scene)
+              planeMat.diffuseTexture = planeTexture
             })
         })
 
@@ -78,10 +123,22 @@ const MyComponent: FunctionComponent<MyComponentProps> = (
   )
 }
 
-const ARMeshTemplate: React.FC = () => {
+const ARMeshTemplate: React.FC<MyComponentProps> = () => {
   return (
     <View>
-      <PageHeader title="AR Mesh" hasDefaultBackButton />
+      <PageHeader title="AR Mesh" hasDefaultBackButton>
+        <BorderlessButton
+          style={{height: 30, width: 30}}
+          onPress={result => {
+            console.log(result)
+          }}>
+          <Image
+            style={{height: '100%', width: '100%'}}
+            source={exchangeIcon}
+            resizeMode="contain"
+          />
+        </BorderlessButton>
+      </PageHeader>
       <MyComponent />
     </View>
   )
