@@ -4,17 +4,18 @@ import {View, PermissionsAndroid, Image} from 'react-native'
 
 import {EngineView, useEngine} from '@babylonjs/react-native'
 import {
-  ArcRotateCamera,
-  Camera,
-  DeviceSourceManager,
-  Scene,
-  SceneLoader,
-  StandardMaterial,
-  Texture,
-  Vector3,
-  WebXRDefaultExperience,
-  WebXRFeatureName,
-  WebXRHitTest,
+    ArcRotateCamera,
+    Camera,
+    DeviceSourceManager, Mesh, MeshBuilder, Quaternion,
+    Scene,
+    SceneLoader,
+    StandardMaterial,
+    Texture, TubeBuilder,
+    Vector3,
+    WebXRDefaultExperience,
+    WebXRFeatureName,
+    WebXRHitTest,
+    WebXRPlaneDetector,
 } from '@babylonjs/core'
 import PageHeader from '../molecules/Header'
 import createInputHandling from '../functions/createInputHandling'
@@ -23,6 +24,7 @@ import '@babylonjs/loaders'
 import {WebXRSessionManager} from '@babylonjs/core/XR/webXRSessionManager'
 import {BorderlessButton} from 'react-native-gesture-handler'
 import exchangeIcon from '../../../assets/icons/exchange-alt-solid.png'
+import earcut from 'earcut'
 
 interface MyComponentProps {}
 
@@ -80,6 +82,57 @@ const MyComponent: FunctionComponent<MyComponentProps> = (
                 ) as WebXRHitTest
 
               console.log('xrHitTestModule: ', xrHitTestModule)
+
+              // Do some plane shtuff.
+              const xrPlanes = xr.baseExperience.featuresManager.enableFeature(
+                WebXRFeatureName.PLANE_DETECTION,
+                'latest',
+              ) as WebXRPlaneDetector
+              console.log('Enabled plane detection.')
+              const planes: any[] = []
+
+              console.log('planes: ', planes)
+
+              xrPlanes.onPlaneAddedObservable.add(webXRPlane => {
+                if (scene) {
+                  console.log('Plane added.')
+                  let plane: any = webXRPlane
+
+                  webXRPlane.polygonDefinition.push(
+                    webXRPlane.polygonDefinition[0],
+                  )
+                  try {
+                    plane.mesh = MeshBuilder.CreatePolygon(
+                      'plane',
+                      {shape: plane.polygonDefinition},
+                      scene,
+                        earcut,
+                    )
+                    let tubeMesh: Mesh = TubeBuilder.CreateTube(
+                      'tube',
+                      {
+                        path: plane.polygonDefinition,
+                        radius: 0.005,
+                        sideOrientation: Mesh.FRONTSIDE,
+                        updatable: true,
+                      },
+                      scene,
+                    )
+                    tubeMesh.setParent(plane.mesh)
+                    planes[plane.id] = plane.mesh
+                    plane.mesh.material = planeMat
+
+                    plane.mesh.rotationQuaternion = new Quaternion()
+                    plane.transformationMatrix.decompose(
+                      plane.mesh.scaling,
+                      plane.mesh.rotationQuaternion,
+                      plane.mesh.position,
+                    )
+                  } catch (ex) {
+                    console.error(ex)
+                  }
+                }
+              })
 
               // import model
               SceneLoader.ImportMeshAsync(
