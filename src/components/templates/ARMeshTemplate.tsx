@@ -4,18 +4,22 @@ import {View, PermissionsAndroid, Image} from 'react-native'
 
 import {EngineView, useEngine} from '@babylonjs/react-native'
 import {
-    ArcRotateCamera,
-    Camera,
-    DeviceSourceManager, Mesh, MeshBuilder, Quaternion,
-    Scene,
-    SceneLoader,
-    StandardMaterial,
-    Texture, TubeBuilder,
-    Vector3,
-    WebXRDefaultExperience,
-    WebXRFeatureName,
-    WebXRHitTest,
-    WebXRPlaneDetector,
+  ArcRotateCamera,
+  Camera,
+  DeviceSourceManager,
+  Mesh,
+  MeshBuilder,
+  Quaternion,
+  Scene,
+  SceneLoader,
+  StandardMaterial,
+  Texture,
+  TubeBuilder,
+  Vector3,
+  WebXRDefaultExperience,
+  WebXRFeatureName,
+  WebXRHitTest,
+  WebXRPlaneDetector,
 } from '@babylonjs/core'
 import PageHeader from '../molecules/Header'
 import createInputHandling from '../functions/createInputHandling'
@@ -106,7 +110,7 @@ const MyComponent: FunctionComponent<MyComponentProps> = (
                       'plane',
                       {shape: plane.polygonDefinition},
                       scene,
-                        earcut,
+                      earcut,
                     )
                     let tubeMesh: Mesh = TubeBuilder.CreateTube(
                       'tube',
@@ -134,18 +138,6 @@ const MyComponent: FunctionComponent<MyComponentProps> = (
                 }
               })
 
-              // import model
-              SceneLoader.ImportMeshAsync(
-                '',
-                'https://models.babylonjs.com/seagulf.glb',
-                // "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/BrainStem/glTF/BrainStem.gltf",
-              ).then(result => {
-                const mesh = result.meshes[0]
-                mesh.position.x = 2
-                mesh.position.z = 2
-                mesh.position.y = -2
-              })
-
               const planeTexture = new Texture(
                 'https://i.imgur.com/z7s3C5B.png',
                 scene,
@@ -157,6 +149,18 @@ const MyComponent: FunctionComponent<MyComponentProps> = (
 
               const planeMat = new StandardMaterial('noLight', scene)
               planeMat.diffuseTexture = planeTexture
+
+              // import model
+              SceneLoader.ImportMeshAsync(
+                '',
+                'https://models.babylonjs.com/seagulf.glb',
+                // "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/BrainStem/glTF/BrainStem.gltf",
+              ).then(result => {
+                const mesh = result.meshes[0]
+                mesh.position.x = 2
+                mesh.position.z = 2
+                mesh.position.y = -2
+              })
             })
         })
 
