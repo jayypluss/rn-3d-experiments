@@ -4,5 +4,6 @@ module.exports = {
   rules: {
     semi: ['error', 'never'],
     curly: ['error', 'multi'],
+    // indent: ['error', 'tab'],
   },
 };
