@@ -1,4 +1,4 @@
-# babylon-native-experiment
+# rn-3d-experiments
 
 This is just an experiment.
 
