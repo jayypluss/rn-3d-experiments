@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'black',
     flexDirection: 'row',
+    maxHeight: 55,
   },
 
   backButton: {
