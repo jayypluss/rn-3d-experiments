@@ -8,6 +8,7 @@ import Dome from '../pages/Dome'
 import Mesh from '../pages/Mesh'
 import MeshGltf from '../pages/MeshGltf'
 import ARMesh from '../pages/ARMesh'
+import AugmentedReality from '../pages/AugmentedReality'
 
 const {Navigator, Screen} = createStackNavigator()
 
@@ -21,6 +22,7 @@ function AppStack() {
         <Screen name="Mesh" component={Mesh} />
         <Screen name="MeshGltf" component={MeshGltf} />
         <Screen name="ARMesh" component={ARMesh} />
+        <Screen name="AugmentedReality" component={AugmentedReality} />
       </Navigator>
     </NavigationContainer>
   )
