@@ -19,7 +19,7 @@ export const NavigationButton: FunctionComponent<NavigateButtonProps> = ({
       style={{
         height: 65,
         width: 185,
-        backgroundColor: '#eeede7',
+        backgroundColor: 'rgba(30, 30, 30, 1)',
         alignItems: 'center',
         justifyContent: 'center',
         padding: 2,
@@ -29,7 +29,7 @@ export const NavigationButton: FunctionComponent<NavigateButtonProps> = ({
       onPress={() => navigate(navigateTo)}>
       <Text
         style={{
-          color: 'black',
+          color: 'rgba(255, 255, 255, 1)',
           fontWeight: '900',
           fontSize: 24,
           textAlign: 'center',

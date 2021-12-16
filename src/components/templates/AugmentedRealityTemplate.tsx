@@ -7,7 +7,7 @@ import openARVRLink from '../functions/ARVR'
 import {Accordion} from '../molecules/Accordion'
 import LinearGradient from 'react-native-linear-gradient'
 import {StyleSheet} from 'react-native'
-import {SecondaryRoundButton} from "../molecules/SecondaryRoundButton";
+import {SecondaryRoundButton} from '../molecules/SecondaryRoundButton'
 
 const styles = StyleSheet.create({
   container: {
@@ -38,7 +38,7 @@ const MyComponent: FunctionComponent<MyComponentProps> = (
     <LinearGradient
       colors={['black', 'white']}
       useAngle={false}
-      end={{ x: 0, y: 9 }}
+      end={{x: 0, y: 9}}
       style={styles.container}>
       <Accordion title={'Google ARVR'}>
         <View

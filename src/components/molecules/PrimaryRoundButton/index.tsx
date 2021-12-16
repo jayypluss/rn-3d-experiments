@@ -16,7 +16,7 @@ export const PrimaryRoundButton: FunctionComponent<ButtonProps> = ({
       style={{
         height: 65,
         width: 185,
-        backgroundColor: '#eeede7',
+        backgroundColor: 'black',
         alignItems: 'center',
         justifyContent: 'center',
         padding: 2,
@@ -26,7 +26,7 @@ export const PrimaryRoundButton: FunctionComponent<ButtonProps> = ({
       onPress={action}>
       <Text
         style={{
-          color: 'black',
+          color: 'white',
           fontWeight: '900',
           fontSize: 24,
         }}>

@@ -6,14 +6,17 @@ const styles = StyleSheet.create({
   },
   toggleButton: {
     borderWidth: 5,
-    borderColor: 'rgba(0, 0, 0, 0.5)',
     borderStyle: 'solid',
     width: '100%',
     alignItems: 'center',
   },
+  toggleButtonColors: {
+    borderColor: 'rgba(0, 0, 0, 0.5)',
+  },
   toggleButtonTitleText: {
     fontSize: 24,
     padding: 15,
+    color: 'white',
   },
 })
 

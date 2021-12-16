@@ -25,7 +25,7 @@ export const SecondaryRoundButton: FunctionComponent<ButtonProps> = ({
         borderRadius: 100,
       }}
       onPress={action}>
-      <Text style={{color: 'black', fontWeight: '900', fontSize: 24}}>
+      <Text style={{color: 'white', fontWeight: '900', fontSize: 24}}>
         {title}
       </Text>
     </TouchableOpacity>

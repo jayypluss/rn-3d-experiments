@@ -11,6 +11,7 @@ import {
 
 import styles from './styles'
 import LinearGradient from 'react-native-linear-gradient'
+import {useColorScheme} from 'react-native-appearance'
 
 interface AccordionProps {
   title: string
@@ -20,7 +21,16 @@ export const Accordion: FunctionComponent<AccordionProps> = ({
   title,
   children,
 }) => {
+  const colorScheme = useColorScheme() // Can be dark | light | no-preference
+
   const [expanded, setExpanded] = useState<boolean>(false)
+  const [isDark, setIsDark] = React.useState(colorScheme === 'dark')
+
+  // Listening to changes of device appearance while in run-time
+  React.useEffect(() => {
+    setIsDark(colorScheme === "dark")
+  }, [colorScheme])
+
 
   if (Platform.OS === 'android')
     UIManager.setLayoutAnimationEnabledExperimental(true)
@@ -55,7 +65,7 @@ export const Accordion: FunctionComponent<AccordionProps> = ({
       useAngle={true}
       style={styles.container}>
       <TouchableOpacity
-        style={styles.toggleButton}
+        style={[styles.toggleButton, styles.toggleButtonColors]}
         onPress={() => toggleExpand()}>
         <Text style={styles.toggleButtonTitleText}>{title}</Text>
       </TouchableOpacity>
